@@ -11,7 +11,6 @@ public class Languages extends Super{
     public void insertData(Object @NotNull [] data) throws Exception {
         PreparedStatement stmt = connection().prepareCall(sql1);
     }
-
     @Override
     public void insertData() throws Exception {
 

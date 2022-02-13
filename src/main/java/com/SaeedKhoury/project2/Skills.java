@@ -15,13 +15,4 @@ public class Skills extends Super {
         }
         stmt.execute();
     }
-
-    @Override
-    public void insertData() throws Exception {
-        PreparedStatement stmt = connection().prepareCall(sql1);
-        for (int i = 1; i <= data.length; i++) {
-            stmt.setObject(i,data[i-1]);
-        }
-        stmt.execute();
-    }
 }

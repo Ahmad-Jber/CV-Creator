@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public abstract class Super {
@@ -13,5 +14,4 @@ public abstract class Super {
         return con;
     }
     public abstract void insertData(Object @NotNull [] data) throws Exception;
-    public abstract void insertData() throws Exception;
 }

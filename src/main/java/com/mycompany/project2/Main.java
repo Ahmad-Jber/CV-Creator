@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        GUI.main(args);
+        new Sign_up().view();
+
     }
 }

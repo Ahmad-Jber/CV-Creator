@@ -10,9 +10,10 @@ public class Users extends Super {
     @Override
     public void insertData(Object @NotNull [] data) throws Exception {
         PreparedStatement stmt = connection().prepareCall(sql1);
-        for (int i = 1; i <= data.length; i++) {
+        for (int i = 1; i <= data.length-1; i++) {
             stmt.setObject(i,data[i-1]);
         }
+        stmt.setDate(6,(Date) data[5]);
         stmt.execute();
     }
 }

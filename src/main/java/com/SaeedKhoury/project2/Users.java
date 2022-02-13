@@ -7,10 +7,6 @@ import java.sql.PreparedStatement;
 
 public class Users extends Super {
     private final String sql1 = "insert into USERS values (?,?,?,?,?,?)";
-    private Object [] data = new Object[6];
-    public void setData(Object[] data) {
-        this.data = data;
-    }
     @Override
     public void insertData(Object @NotNull [] data) throws Exception {
         PreparedStatement stmt = connection().prepareCall(sql1);

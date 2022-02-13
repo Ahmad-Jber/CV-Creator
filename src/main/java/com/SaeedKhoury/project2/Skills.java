@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.PreparedStatement;
 
 public class Skills extends Super {
-    Object [] data = new Object[3];
     private final String sql1 = "insert into USERS values (?,?,?)";
     @Override
     public void insertData(Object @NotNull [] data) throws Exception {

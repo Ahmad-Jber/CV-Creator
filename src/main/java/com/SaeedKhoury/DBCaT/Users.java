@@ -1,8 +1,7 @@
-package com.SaeedKhoury.project2;
+package com.SaeedKhoury.DBCaT;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 
 public class Users extends Super {

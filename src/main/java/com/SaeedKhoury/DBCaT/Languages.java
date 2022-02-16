@@ -1,4 +1,4 @@
-package com.SaeedKhoury.project2;
+package com.SaeedKhoury.DBCaT;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,11 +1,9 @@
-package com.SaeedKhoury.project2;
+package com.SaeedKhoury.DBCaT;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Objects;
 
 public abstract class Super {
     public Connection connection() throws Exception {

@@ -1,23 +1,22 @@
-package com.mycompany.project2;
+package com.SaeedKhoury.GUI;
 
-import com.SaeedKhoury.project2.Users;
-import org.jetbrains.annotations.NotNull;
+import com.SaeedKhoury.DBCaT.Users;
+import jdk.jshell.Snippet;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.ObjectInputFilter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Scanner;
 
 public class Sign_in extends GUI {
     /*if (userName.equalsIgnoreCase("Test") && password.equalsIgnoreCase("1234@.")){
         System.out.println("Logged in");
     }*/
-    JFrame sign_in =new JFrame("Sign in");
+    static JFrame sign_in =new JFrame("Sign in");
     JLabel Username = new JLabel("Username"),
             password1 = new JLabel("Password");
     JTextField username = new JTextField();
@@ -58,6 +57,7 @@ public class Sign_in extends GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new Sign_up().view();
+                sign_in.setVisible(false);
             }
         });
         signIn.addActionListener(new AbstractAction() {
@@ -69,12 +69,22 @@ public class Sign_in extends GUI {
                     ResultSet rs =stmt.executeQuery(sql);
                     if(isEmpty()){
                         JOptionPane.showMessageDialog(null,"Please fill the empty fields");
-                    }else if (validateUser(username.getText(),getPass(password.getPassword()),rs,stmt)){
+                    }else if (validateUserName(username.getText(),rs,stmt)){
+                        if (validateUser(username.getText(),getPass(password.getPassword()),rs,stmt)){
                         JOptionPane.showMessageDialog(null,"Successfully login");
                         sign_in.setVisible(false);
                         new AddData().view();
+                        }else{
+                            JOptionPane.showMessageDialog(null,"Enter password again");
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null,"Login ","",JOptionPane.ERROR_MESSAGE);
+                        int option = JOptionPane.showConfirmDialog(null,"You don't have account, Do you want to create one?","Invalid Username",JOptionPane.YES_NO_CANCEL_OPTION);
+                        if (option==JOptionPane.YES_OPTION){
+                            new Sign_up().view();
+                            sign_in.setVisible(false);
+                        }else if (option==JOptionPane.NO_OPTION){
+                            System.exit(JOptionPane.NO_OPTION);
+                        }
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -89,12 +99,20 @@ public class Sign_in extends GUI {
             pstat.setString(1,username);
             pstat.setString(2,password);
             rs = pstat.executeQuery();
-            if(!rs.next() && rs.getRow() == 0) {
-                result = false;
-            }
-            else{
-                result = true;
-            }
+            result = rs.next() || rs.getRow() != 0;
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Error while login");
+        }
+        return result;
+    }
+    public boolean validateUserName(String username,ResultSet rs,PreparedStatement pstat){
+        boolean result=false;
+        try {
+            pstat = new Users().connection().prepareStatement("select USER_ID from USERS where USER_ID= ?");
+            pstat.setString(1,username);
+            rs = pstat.executeQuery();
+            result = rs.next() || rs.getRow() != 0;
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(null,"Error while login");

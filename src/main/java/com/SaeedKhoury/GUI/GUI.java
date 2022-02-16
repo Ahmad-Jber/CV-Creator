@@ -1,4 +1,4 @@
-package com.mycompany.project2;
+package com.SaeedKhoury.GUI;
 
 import org.jdatepicker.JDatePicker;
 
@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public abstract class GUI {
     Font font = new Font(Font.SANS_SERIF,Font.BOLD,15);
-        abstract void view();
-        abstract void addComponents();
-        abstract void setBound();
+    abstract void view();
+    abstract void addComponents();
+    abstract void setBound();
     }

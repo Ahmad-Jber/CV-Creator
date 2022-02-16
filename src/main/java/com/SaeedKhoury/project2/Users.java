@@ -6,10 +6,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 
 public class Users extends Super {
-    private final String sql1 = "insert into USERS values (?,?,?,?,?,?)";
     @Override
     public void insertData(Object @NotNull [] data) throws Exception {
-        PreparedStatement stmt = connection().prepareCall(sql1);
+        String sql = "insert into USERS values (?,?,?,?,?,?)";
+        PreparedStatement stmt = connection().prepareCall(sql);
         for (int i = 1; i <= data.length-1; i++) {
             stmt.setObject(i,data[i-1]);
         }

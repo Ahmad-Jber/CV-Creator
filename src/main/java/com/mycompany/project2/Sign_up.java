@@ -2,13 +2,13 @@ package com.mycompany.project2;
 
 import com.SaeedKhoury.project2.Users;
 import org.jdatepicker.JDatePicker;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.sql.Date;
 import java.util.Arrays;
 
 public class Sign_up extends GUI{
@@ -36,13 +36,12 @@ public class Sign_up extends GUI{
     JButton submit = new JButton("Submit");
     JComboBox Gender = new JComboBox(new String[]{"Male","Female"});
     JPasswordField passwordField1 = new JPasswordField();
-    Font newFont = new Font("Arial", Font.BOLD, 15);
     Component [] arr = {full_name,FullName,first_name,FirstName,last_name,LastName,username,Username,email,Email,other_language_name,OtherLang,password,passwordField,con_pass,passwordField1,show_password,gender,Gender,birthdate,BIRTHDATE,submit};
     @Override
     void view(){
         sign_up.setLocation(500,100);
         panel.setBorder(BorderFactory.createTitledBorder("Add User"));
-        panel.setBounds(200, 10, 800, 1200);
+        panel.setBounds(200, 10, 800, 800);
         sign_up.setVisible(true);
         sign_up.setSize(1000, 1200);
         sign_up.setLayout(null);
@@ -70,15 +69,17 @@ public class Sign_up extends GUI{
                 }else if(!Email.getText().contains("@")){
                     JOptionPane.showMessageDialog(null,"Your Email is not correct");
                 }else{
+                    String pass = Arrays.toString(passwordField.getPassword());
                     Users user = new Users();
-                    Object[] data = new Object[]{Username.getText(),FullName.getText(),OtherLang.getText(), passwordField.getPassword(),String.valueOf(Gender.getSelectedItem().toString().charAt(0)),dateFromJDatePicker(BIRTHDATE)};
+                    Object[] data = new Object[]{Username.getText(),FullName.getText(),OtherLang.getText(),getPass(passwordField.getPassword()),String.valueOf(String.valueOf(Gender.getSelectedItem()).charAt(0)),dateFromJDatePicker(BIRTHDATE)};
                     try {
                         user.insertData(data);
+                        JOptionPane.showMessageDialog(null,"Successfully");
+                        sign_up.setVisible(false);
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null,"Error while saving the data");
+                        ex.printStackTrace();
                     }
                 }
-                JOptionPane.showMessageDialog(null,"Successfully");
             }
         });
     }
@@ -96,15 +97,14 @@ public class Sign_up extends GUI{
     void setFont(){
         JLabel[]labels={full_name,first_name,last_name,username,email,other_language_name,password,con_pass,gender,birthdate};
         for (JLabel l:labels) {
-            l.setFont(newFont);
+            l.setFont(font);
         }
     }
-    java.sql.Date dateFromJDatePicker(JDatePicker datePicker){
-        Date date = new java.sql.Date(datePicker.getModel().getYear(),datePicker.getModel().getMonth(),datePicker.getModel().getDay());
-        return date;
+    java.sql.Date dateFromJDatePicker(@NotNull JDatePicker datePicker){
+        return new java.sql.Date(datePicker.getModel().getYear(),datePicker.getModel().getMonth(),datePicker.getModel().getDay());
     }
+    @Override
     void setBound(){
-        frame1.setLayout(new ScrollPaneLayout());
         FullName.setBounds(400, 42, 280, 30);
         full_name.setBounds(100, 42, 280, 30);
         FirstName.setBounds(400, 95, 280, 30);
@@ -121,11 +121,18 @@ public class Sign_up extends GUI{
         password.setBounds(100, 351, 280, 30);
         passwordField1.setBounds(400, 400, 280, 30);
         con_pass.setBounds(95, 400, 280, 30);
-        show_password.setBounds(250, 450, 150, 30);
+        show_password.setBounds(400, 450, 150, 30);
         gender.setBounds(100, 500, 280, 30);
         birthdate.setBounds(100,550,280,30);
         BIRTHDATE.setBounds(400, 550, 280, 40);
         Gender.setBounds(400, 500, 280, 30);
         submit.setBounds(230, 600, 280, 50);
+    }
+    String getPass(char[]pass){
+        String password=new String();
+        for (int i = 0; i < pass.length; i++) {
+            password = password+pass[i];
+        }
+        return password;
     }
 }

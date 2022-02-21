@@ -1,14 +1,12 @@
 package com.SaeedKhoury.GUI;
 
 import com.SaeedKhoury.DBCaT.Users;
-import jdk.jshell.Snippet;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.ObjectInputFilter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -22,8 +20,8 @@ public class Sign_in extends GUI {
     JTextField username = new JTextField();
     JPasswordField password = new JPasswordField();
     JButton signIn = new JButton("Sign in");
-    JButton signUp =new JButton("Sign Up");
-    JCheckBox show_password =new JCheckBox("Show Password");
+    JButton signUp = new JButton("Sign Up");
+    JCheckBox show_password = new JCheckBox("Show Password");
     @Override
     void view(){
         sign_in.setVisible(true);
@@ -73,7 +71,9 @@ public class Sign_in extends GUI {
                         if (validateUser(username.getText(),getPass(password.getPassword()),rs,stmt)){
                         JOptionPane.showMessageDialog(null,"Successfully login");
                         sign_in.setVisible(false);
+/*
                         new AddData().view();
+*/
                         }else{
                             JOptionPane.showMessageDialog(null,"Enter password again");
                         }

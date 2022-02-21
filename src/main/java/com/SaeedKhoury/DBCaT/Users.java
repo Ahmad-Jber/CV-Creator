@@ -15,4 +15,19 @@ public class Users extends Super {
         stmt.setDate(6, (java.sql.Date) data[5]);
         stmt.execute();
     }
+
+    @Override
+    public void updateData(Object @NotNull [] oldData, Object @NotNull [] currentData) throws Exception {
+
+    }
+
+    @Override
+    public void deleteData() throws Exception {
+
+    }
+
+    @Override
+    public void selectData() throws Exception {
+
+    }
 }

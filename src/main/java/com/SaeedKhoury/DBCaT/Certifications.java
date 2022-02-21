@@ -15,4 +15,19 @@ public class Certifications extends Super {
         }
         stmt.execute();
     }
+
+    @Override
+    public void updateData(Object @NotNull [] oldData, Object @NotNull [] currentData) throws Exception {
+
+    }
+
+    @Override
+    public void deleteData() throws Exception {
+
+    }
+
+    @Override
+    public void selectData() throws Exception {
+
+    }
 }

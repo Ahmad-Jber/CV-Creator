@@ -19,7 +19,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Maven: org.jetbrains:annotations:23.0.0" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -29,5 +28,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: org.jetbrains:annotations:23.0.0" level="project" />
+    <orderEntry type="library" name="ojdbc14" level="project" />
   </component>
 </module>

@@ -2,74 +2,87 @@ package com.SaeedKhoury.GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class AddData extends GUI{
-    JFrame insertUserData = new JFrame("Insert user data");
-    JPanel panel = new JPanel();
-    JScrollPane bar = new JScrollPane(panel);
-    JLabel skillsTitle = new JLabel("Enter your Skills title");
-    JTextField userSkills = new JTextField();
-    JLabel yourSkills = new JLabel("Description of your skills");
-    JTextArea descriptionOfYourSkills = new JTextArea();
-    JButton addSkills = new JButton("Add Another Skills");
-    JLabel certTitle = new JLabel("Enter title of your Certification");
-    JTextField certificationTitle = new JTextField();
-    JLabel certSource = new JLabel("Certification source");
-    JTextField certificationSource = new JTextField();
-    JLabel certType = new JLabel("Certification Type");
-    JTextField certificationType = new JTextField();
-    JButton addCertification = new JButton("Add Another Certification");
-    JLabel langView1 = new JLabel("Lang1");
-    JTextField languageInput1 = new JTextField();
-    JLabel langView2 = new JLabel("lang 2");
-    JTextField languageInput2 = new JTextField();
-    JButton addLanguage = new JButton("Add another language");
-    JLabel phone1 = new JLabel("Phone1");
-    JTextField phoneInput = new JTextField();
-    JLabel fax = new JLabel("Fax");
-    JTextField faxInput = new JTextField();
-    JButton addContact = new JButton("Add another contact");
-    void view(){
-        insertUserData.setVisible(true);
-        insertUserData.setLayout(null);
-        insertUserData.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        addComponents();
-        setBound();
-    }
-    @Override
-    void addComponents() {
-        Component [] components = {skillsTitle,userSkills,yourSkills,yourSkills,descriptionOfYourSkills,addSkills, certTitle,certificationTitle,certSource,certificationSource,certType,certificationType,addCertification,langView1,languageInput1,langView2,languageInput2,addLanguage,phone1,phoneInput,fax,faxInput,addContact};
-        for (Component com:components) {
-            panel.add(com);
-        }
-        insertUserData.add(panel);
-        insertUserData.add(bar);
-    }
-    @Override
-    void setBound() {
-        skillsTitle.setBounds(100,40,130,30);
-        userSkills.setBounds(400,40,240,27);
-        yourSkills.setBounds(100,80,150,30);
-        descriptionOfYourSkills.setBounds(400,80,240,27);
-        addSkills.setBounds(100,125,145,30);
-        certTitle.setBounds(100,190,180,30);
-        certificationTitle.setBounds(400,190,240,27);
-        certSource.setBounds(100,230,190,30);
-        certificationSource.setBounds(400,230,240,27);
-        certType.setBounds(100,270,145,30);
-        certificationType.setBounds(400,270,240,27);
-        addCertification.setBounds(100,310,145,30);
-        phone1.setBounds(100,540,145,30);
-        phoneInput.setBounds(400,540,240,27);
-        fax.setBounds(100,575,145,30);
-        faxInput.setBounds(400,575,240,27);
-        addContact.setBounds(100,615,145,30);
-        langView1.setBounds(100,380,145,30);
-        languageInput1.setBounds(400,380,240,27);
-        langView2.setBounds(100,415,145,30);
-        languageInput2.setBounds(400,415,240,27);
-        addLanguage.setBounds(100,460,160,30);
-        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.setAlignmentY(Component.CENTER_ALIGNMENT);
+public class AddData{
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("CardLayout demo");           // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
+        frame.setSize(400, 200);                                // هنا قمنا بتحديد حجم النافذة. عرضها 400 و طولها 200
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
+        frame.setLayout(new GridBagLayout());                   // لترتيب الأشياء التي نضيفها بداخلها GridBagLayout هنا جعلنا النافذة تستخدم الـ
+
+        // اليمنى Panel اليسرى و الـ Panel هنا قمنا بتعريف الـ
+        JPanel panel_L = new JPanel();
+        JPanel panel_R = new JPanel();
+
+        // في النافذة panel_R و الـ panel_L لتحديد مكان و حجم الـ GridBagConstraints هنا قمنا بتعريف كائن من الكلاس
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        // يتأثر بكامل المساحة المتوفرة من النافذة بالإتجاهين الأفقي و العامودي gbc هنا جعلنا الـ
+        gbc.fill = GridBagConstraints.BOTH;
+
+        // هنا جعلنا نسبة الجذب الأفقية و العامودية متساوي حتى يكون المحتوى دائماً مطابق لحجم الشاشة
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+
+        // في يسار النافذة panel_L هنا أضفنا الـ
+        frame.add(panel_L, gbc);
+
+        // في يمين النافذة مع إعطائها حجم جذب أكبر بعشر مرات panel_R هنا أضفنا الـ
+        gbc.weightx = 10;
+        frame.add(panel_R, gbc);
+
+        // إلى 4 أقسام بالطول panel_L هنا قمنا بتقسيم الـ
+        panel_L.setLayout(new GridLayout(5, 1));
+
+        // هنا قمنا بتعريف 4 أزرار
+        JButton next = new JButton("Next");
+        JButton previous = new JButton("Previous");
+
+        // panel_L هنا قمنا بإضافة الأزرار في الـ
+        panel_L.add(next);
+        panel_L.add(previous);
+
+        // // لترتيب الأشياء التي نضيفها بداخلها فوق بعضها البعض CardLayout تستخدم الـ panel_R هنا جعلنا الـ
+        CardLayout card = new CardLayout();
+        Container container = panel_R;
+        container.setLayout(card);
+
+        // Panels هنا قمنا بتعريف 4
+        JPanel Skills = new JPanel();
+        JPanel Certifications = new JPanel();
+        JPanel Languages = new JPanel();
+        JPanel Contacts = new JPanel();
+
+        // منهم Panel هنا قمنا بإضافة عنوان في كل
+        Skills.add(new JLabel("Panel 1"));
+        Certifications.add(new JLabel("Panel 2"));
+        Languages.add(new JLabel("Panel 3"));
+        Contacts.add(new JLabel("Panel 4"));
+
+        // panel_R الأربعة في الـ Panels هنا قمنا بإضافة الـ
+        panel_R.add(Skills);
+        panel_R.add(Certifications);
+        panel_R.add(Languages);
+        panel_R.add(Contacts);
+
+        // التالية Panel سيتم عرض الـ next هنا قلنا أنه عند النقر على الزر
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                card.next(container);
+            }
+        });
+
+        // السابقة Panel سيتم عرض الـ previous هنا قلنا أنه عند النقر على الزر
+        previous.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                card.previous(container);
+            }
+        });
+        // هنا جعلنا النافذة مرئية
+        frame.setVisible(true);
     }
 }

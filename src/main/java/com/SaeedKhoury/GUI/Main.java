@@ -1,15 +1,6 @@
 package com.SaeedKhoury.GUI;
 
-import com.SaeedKhoury.DBCaT.Skills;
-import com.SaeedKhoury.DBCaT.Super;
 import com.SaeedKhoury.DBCaT.Users;
-
-import javax.swing.*;
-import java.awt.*;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Scanner;
-import java.util.UUID;
 
 public class Main {
     public static void main(String[] args)throws Exception {

@@ -4,14 +4,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 
-public class Certifications extends Super {
-    private final String sql1 = "insert into CERTIFICATIONS values (?,?,?,?)";
+public class UserSkills extends Super{
+    protected final static int USER_SKILLS_COLUM_NUMBER=4;
     @Override
     public void insertData(Object @NotNull [] data) throws Exception {
-        PreparedStatement stmt = connection().prepareCall(sql1);
-        for (int i = 1; i <= data.length; i++) {
-            System.out.println("CERTIFICATIONS");
-            stmt.setObject(i,data[i-1]);
+        final String insertSQL = "insert into  SKILLS values (?,?,?)";
+        PreparedStatement stmt = connection().prepareCall(insertSQL);
+        for (int i = 0; i < data.length; i++) {
+            stmt.setObject(i+1,data[i]);
         }
         stmt.execute();
     }

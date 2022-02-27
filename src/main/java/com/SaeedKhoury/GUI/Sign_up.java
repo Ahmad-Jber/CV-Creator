@@ -70,7 +70,9 @@ public class Sign_up extends GUI {
                     JOptionPane.showMessageDialog(null, "You cannot submit in null fields");
                 } else if (!Email.getText().contains("@")) {
                     JOptionPane.showMessageDialog(null, "Your Email is not correct");
-                } else {
+                }else if(!getPass(passwordField.getPassword()).equals(getPass(passwordField1.getPassword()))){
+                    JOptionPane.showMessageDialog(null, "Your Password is not confirmed");
+                }else {
                     Users user = new Users();
                     Object[] data = new Object[]{Username.getText(), FullName.getText(), OtherLang.getText(), getPass(passwordField.getPassword()), String.valueOf(String.valueOf(Gender.getSelectedItem()).charAt(0)), dateFromJDatePicker(BIRTHDATE)};
                     try {
@@ -110,7 +112,6 @@ public class Sign_up extends GUI {
         return new java.sql.Date(datePicker.getModel().getYear()-1900, datePicker.getModel().getMonth(), datePicker.getModel().getDay());
     }
 
-    @Override
     void setBound() {
         FullName.setBounds(400, 42, 280, 30);
         full_name.setBounds(100, 42, 280, 30);
@@ -137,10 +138,10 @@ public class Sign_up extends GUI {
     }
 
     String getPass(char[] pass) {
-        String password = new String();
-        for (int i = 0; i < pass.length; i++) {
-            password = password + pass[i];
+        StringBuilder password = new StringBuilder();
+        for (char c : pass) {
+            password.append(c);
         }
-        return password;
+        return password.toString();
     }
 }

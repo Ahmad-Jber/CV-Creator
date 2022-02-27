@@ -9,7 +9,7 @@ public class Users extends Super {
     public void insertData(Object @NotNull [] data) throws Exception {
         final String insertSQL = "insert into USERS values (?,?,?,?,?,?)";
         PreparedStatement stmt = connection().prepareCall(insertSQL);
-        for (int i = 1; i <= data.length-1; i++) {
+        for (int i = 1; i <= data.length-1; i++){
             stmt.setObject(i,data[i-1]);
         }
         stmt.setDate(6, (java.sql.Date) data[5]);

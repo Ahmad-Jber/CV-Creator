@@ -1,88 +1,119 @@
 package com.SaeedKhoury.GUI;
+import com.SaeedKhoury.DBCaT.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
+import javax.swing.*;
+    public class AddData extends GUI{
+        JFrame insertData = new JFrame("Insert CV Data");
+        JPanel panel_1 = new JPanel();
+        JPanel panel_2 = new JPanel();
+        JPanel panel_3 = new JPanel();
+        JPanel panel_4 = new JPanel();
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+        JLabel skillsTitle = new JLabel("Enter your Skills title");
+        JTextField userSkills = new JTextField();
+        JLabel yourSkills = new JLabel("Description of your skills");
+        JTextArea descriptionOfYourSkills = new JTextArea();
+        JLabel certTitle = new JLabel("Enter title of your Certification");
+        JTextField certificationTitle = new JTextField();
+        JLabel certSource = new JLabel("Certification source");
+        JTextField certificationSource = new JTextField();
+        JLabel certType = new JLabel("Certification Type");
+        JTextField certificationType = new JTextField();
+        JLabel langView1 = new JLabel("Lang1");
+        JTextField languageInput1 = new JTextField();
+        JLabel langView2 = new JLabel("lang 2");
+        JTextField languageInput2 = new JTextField();
+        JLabel phone1 = new JLabel("Phone1");
+        JTextField phoneInput = new JTextField();
+        JLabel fax = new JLabel("Fax");
+        JTextField faxInput = new JTextField();
+        JButton submit = new JButton("Submit");
+        @Override
+        void addComponents() {
+            panel_1.add(skillsTitle);
+            panel_1.add(userSkills);
+            panel_1.add(yourSkills);
+            panel_1.add(descriptionOfYourSkills);
+            panel_2.add(certTitle);
+            panel_2.add(certificationTitle);
+            panel_2.add(certSource);
+            panel_2.add(certificationSource);
+            panel_2.add(certType);
+            panel_2.add(certificationType);
+            panel_3.add(langView1);
+            panel_3.add(languageInput1);
+            panel_3.add(langView2);
+            panel_3.add(languageInput2);
+            panel_4.add(phone1);
+            panel_4.add(phoneInput);
+            panel_4.add(fax);
+            panel_4.add(faxInput);
+            tabbedPane.addTab("Skills", panel_1);
+            tabbedPane.addTab("Certification", panel_2);
+            tabbedPane.addTab("Languages", panel_3);
+            tabbedPane.addTab("Contact", panel_4);
+            insertData.add(tabbedPane);
+            insertData.add(submit);
+        }
+        @Override
+        public void view() {
+            addComponents();
+            setLayout();
+            insertData.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            tabbedPane.setLocation(JTabbedPane.CENTER,JTabbedPane.CENTER);
+            descriptionOfYourSkills.setSize(200,600);
+            insertData.setVisible(true);
+            insertData.pack();
+            insertData.setLocation(500,300);
+            descriptionOfYourSkills.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.GRAY));
+            submit.addActionListener(new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (isEmpty()){
+                        JOptionPane.showMessageDialog(null,"Can not submit null data");
+                    }else{
+                        try {
+                            PreparedStatement stmt = new Users().connection().prepareCall("INSERT INTO SKILLS (DESCRIPTION) VALUES (?)");
+                            stmt.setString(1,descriptionOfYourSkills.getText());
+                            System.out.println(stmt.execute());;
 
-public class AddData{
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("CardLayout demo");           // أي قمنا بإنشاء نافذة مع وضع عنوان لها JFrame هنا أنشأنا كائن من الكلاس
-        frame.setSize(400, 200);                                // هنا قمنا بتحديد حجم النافذة. عرضها 400 و طولها 200
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // هنا جعلنا زر الخروج من النافذة يغلق البرنامج
-        frame.setLayout(new GridBagLayout());                   // لترتيب الأشياء التي نضيفها بداخلها GridBagLayout هنا جعلنا النافذة تستخدم الـ
-
-        // اليمنى Panel اليسرى و الـ Panel هنا قمنا بتعريف الـ
-        JPanel panel_L = new JPanel();
-        JPanel panel_R = new JPanel();
-
-        // في النافذة panel_R و الـ panel_L لتحديد مكان و حجم الـ GridBagConstraints هنا قمنا بتعريف كائن من الكلاس
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        // يتأثر بكامل المساحة المتوفرة من النافذة بالإتجاهين الأفقي و العامودي gbc هنا جعلنا الـ
-        gbc.fill = GridBagConstraints.BOTH;
-
-        // هنا جعلنا نسبة الجذب الأفقية و العامودية متساوي حتى يكون المحتوى دائماً مطابق لحجم الشاشة
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-
-        // في يسار النافذة panel_L هنا أضفنا الـ
-        frame.add(panel_L, gbc);
-
-        // في يمين النافذة مع إعطائها حجم جذب أكبر بعشر مرات panel_R هنا أضفنا الـ
-        gbc.weightx = 10;
-        frame.add(panel_R, gbc);
-
-        // إلى 4 أقسام بالطول panel_L هنا قمنا بتقسيم الـ
-        panel_L.setLayout(new GridLayout(5, 1));
-
-        // هنا قمنا بتعريف 4 أزرار
-        JButton next = new JButton("Next");
-        JButton previous = new JButton("Previous");
-
-        // panel_L هنا قمنا بإضافة الأزرار في الـ
-        panel_L.add(next);
-        panel_L.add(previous);
-
-        // // لترتيب الأشياء التي نضيفها بداخلها فوق بعضها البعض CardLayout تستخدم الـ panel_R هنا جعلنا الـ
-        CardLayout card = new CardLayout();
-        Container container = panel_R;
-        container.setLayout(card);
-
-        // Panels هنا قمنا بتعريف 4
-        JPanel Skills = new JPanel();
-        JPanel Certifications = new JPanel();
-        JPanel Languages = new JPanel();
-        JPanel Contacts = new JPanel();
-
-        // منهم Panel هنا قمنا بإضافة عنوان في كل
-        Skills.add(new JLabel("Panel 1"));
-        Certifications.add(new JLabel("Panel 2"));
-        Languages.add(new JLabel("Panel 3"));
-        Contacts.add(new JLabel("Panel 4"));
-
-        // panel_R الأربعة في الـ Panels هنا قمنا بإضافة الـ
-        panel_R.add(Skills);
-        panel_R.add(Certifications);
-        panel_R.add(Languages);
-        panel_R.add(Contacts);
-
-        // التالية Panel سيتم عرض الـ next هنا قلنا أنه عند النقر على الزر
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                card.next(container);
-            }
-        });
-
-        // السابقة Panel سيتم عرض الـ previous هنا قلنا أنه عند النقر على الزر
-        previous.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                card.previous(container);
-            }
-        });
-        // هنا جعلنا النافذة مرئية
-        frame.setVisible(true);
-    }
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        descriptionOfYourSkills.getText();
+                        Object [] UserSkills={Sign_in.User_ID,0,0,userSkills.getText()};
+                        Object [] UserLang={Sign_in.User_ID,0,languageInput1.getText()};
+                        Object [] User_Cert={Sign_in.User_ID,0,certificationTitle.getText()};
+                        String [] Cont = {faxInput.getText(),phoneInput.getText()};
+                        try {
+                            new UserSkills().insertData(UserSkills);
+                            new UserCertifications().insertData(User_Cert);
+                            new UserLanguages().insertData(UserLang);
+                            for (String s : Cont) {
+                                Object[] User_Cont = {Sign_in.User_ID, 0, 0, s};
+                                new UserContacts().insertData(User_Cont);
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }
+        public void setLayout(){
+            insertData.setLayout(new FlowLayout());
+            panel_1.setLayout(new GridLayout(3,1));
+            panel_2.setLayout(new GridLayout(4,2));
+            panel_3.setLayout(new GridLayout(3,2));
+            panel_4.setLayout(new GridLayout(3,2));
+        }
+        boolean isEmpty() {
+            return userSkills.getText().equals("") || descriptionOfYourSkills.getText().equals("") || certificationTitle.getText().equals("") || certificationType.getText().equals("") || certificationSource.getText().equals("") || phone1.getText().equals("") || fax.getText().equals("");
+        }
 }

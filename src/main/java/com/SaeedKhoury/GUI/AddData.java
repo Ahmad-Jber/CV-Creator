@@ -5,8 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
 import javax.swing.*;
     public class AddData extends GUI{
         JFrame insertData = new JFrame("Insert CV Data");
@@ -29,10 +27,8 @@ import javax.swing.*;
         JTextField languageInput1 = new JTextField();
         JLabel langView2 = new JLabel("lang 2");
         JTextField languageInput2 = new JTextField();
-        JLabel phone1 = new JLabel("Phone1");
+        JLabel phone = new JLabel("Phone Number");
         JTextField phoneInput = new JTextField();
-        JLabel fax = new JLabel("Fax");
-        JTextField faxInput = new JTextField();
         JButton submit = new JButton("Submit");
         @Override
         void addComponents() {
@@ -50,10 +46,8 @@ import javax.swing.*;
             panel_3.add(languageInput1);
             panel_3.add(langView2);
             panel_3.add(languageInput2);
-            panel_4.add(phone1);
+            panel_4.add(phone);
             panel_4.add(phoneInput);
-            panel_4.add(fax);
-            panel_4.add(faxInput);
             tabbedPane.addTab("Skills", panel_1);
             tabbedPane.addTab("Certification", panel_2);
             tabbedPane.addTab("Languages", panel_3);
@@ -78,27 +72,17 @@ import javax.swing.*;
                     if (isEmpty()){
                         JOptionPane.showMessageDialog(null,"Can not submit null data");
                     }else{
-                        try {
-                            PreparedStatement stmt = new Users().connection().prepareCall("INSERT INTO SKILLS (DESCRIPTION) VALUES (?)");
-                            stmt.setString(1,descriptionOfYourSkills.getText());
-                            System.out.println(stmt.execute());;
-
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        }
                         descriptionOfYourSkills.getText();
-                        Object [] UserSkills={Sign_in.User_ID,0,0,userSkills.getText()};
-                        Object [] UserLang={Sign_in.User_ID,0,languageInput1.getText()};
-                        Object [] User_Cert={Sign_in.User_ID,0,certificationTitle.getText()};
-                        String [] Cont = {faxInput.getText(),phoneInput.getText()};
+                        Object [] Skills= {userSkills.getText()};
+                        Object [] User_Cont = {Sign_in.getUSER_ID(),phoneInput.getText()};
                         try {
-                            new UserSkills().insertData(UserSkills);
-                            new UserCertifications().insertData(User_Cert);
-                            new UserLanguages().insertData(UserLang);
-                            for (String s : Cont) {
-                                Object[] User_Cont = {Sign_in.User_ID, 0, 0, s};
-                                new UserContacts().insertData(User_Cont);
-                            }
+//                            new Skills().insertData(new Object[]{userSkills.getText()});
+                            new Certifications().insertData(new Object[]{certificationType.getText(),certificationTitle.getText()});
+                            new USER_CERTIFICATIONS().insertData(new Object[]{Sign_in.getUSER_ID(),certificationTitle.getText(),certificationSource.getText()});
+                           /* Languages.insertData(languageInput1.getText());
+                            Languages.insertData(languageInput2.getText());
+                            new Contacts().insertData(User_Cont);*/
+                            JOptionPane.showMessageDialog(null,"Save Data Successfully");
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
@@ -114,6 +98,6 @@ import javax.swing.*;
             panel_4.setLayout(new GridLayout(3,2));
         }
         boolean isEmpty() {
-            return userSkills.getText().equals("") || descriptionOfYourSkills.getText().equals("") || certificationTitle.getText().equals("") || certificationType.getText().equals("") || certificationSource.getText().equals("") || phone1.getText().equals("") || fax.getText().equals("");
+            return userSkills.getText().equals("") || descriptionOfYourSkills.getText().equals("") || certificationTitle.getText().equals("") || certificationType.getText().equals("") || certificationSource.getText().equals("") || phone.getText().equals("");
         }
 }

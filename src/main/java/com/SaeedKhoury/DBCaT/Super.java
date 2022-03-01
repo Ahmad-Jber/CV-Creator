@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public abstract class Super {
-    public Connection connection() {
+    public static Connection connection() {
         Connection con=null;
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");

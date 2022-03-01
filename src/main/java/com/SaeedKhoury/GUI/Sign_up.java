@@ -34,7 +34,7 @@ public class Sign_up extends GUI {
     JTextField Username = new JTextField();
     JTextField Email = new JTextField();
     JButton submit = new JButton("Submit");
-    JComboBox Gender = new JComboBox(new String[]{"Male", "Female"});
+    JComboBox<String> Gender = new JComboBox<>(new String[]{"Male","Female"});
     JPasswordField passwordField1 = new JPasswordField();
     Component[] arr = {full_name, FullName, first_name, FirstName, last_name, LastName, username, Username, email, Email, other_language_name, OtherLang, password, passwordField, con_pass, passwordField1, show_password, gender, Gender, birthdate, BIRTHDATE, submit};
 

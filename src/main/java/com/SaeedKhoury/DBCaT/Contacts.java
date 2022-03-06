@@ -3,27 +3,26 @@ package com.SaeedKhoury.DBCaT;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Contacts extends Super{
-    protected final static int CONTACTS_COLUM_NUMBER=5;
-    @Override
-    public void insertData(Object @NotNull [] data) throws Exception {
+    public void insertData(String CONTACT_ADDRESS){
         final String insertSQL = "insert into USER_CONTACTS(USER_ID,CONTACT_ADDRESS) values (?,?)";
-        PreparedStatement stmt = connection().prepareCall(insertSQL);
-        for (int i = 1; i <= data.length; i++) {
-            stmt.setObject(i,data[i-1]);
+        try {
+            PreparedStatement stmt = connection().prepareCall(insertSQL);
+            stmt.setString(1,getUSER_ID());
+            stmt.setString(2,CONTACT_ADDRESS);
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        stmt.execute();
     }
-    @Override
     public void updateData(Object @NotNull [] oldData, Object @NotNull [] currentData) throws Exception {
 
     }
-    @Override
     public void deleteData() throws Exception {
 
     }
-    @Override
     public void selectData() throws Exception {
 
     }

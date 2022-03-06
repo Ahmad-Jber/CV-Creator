@@ -3,8 +3,6 @@ import com.SaeedKhoury.DBCaT.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.swing.*;
     public class AddData extends GUI{
         JFrame insertData = new JFrame("Insert CV Data");
@@ -14,21 +12,21 @@ import javax.swing.*;
         JPanel panel_4 = new JPanel();
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
         JLabel skillsTitle = new JLabel("Enter your Skills title");
-        JTextField userSkills = new JTextField();
+        public static JTextField userSkills = new JTextField();
         JLabel yourSkills = new JLabel("Description of your skills");
-        JTextArea descriptionOfYourSkills = new JTextArea();
+        public static JTextArea descriptionOfYourSkills = new JTextArea();
         JLabel certTitle = new JLabel("Enter title of your Certification");
-        JTextField certificationTitle = new JTextField();
+        public static JTextField certificationTitle = new JTextField();
         JLabel certSource = new JLabel("Certification source");
-        JTextField certificationSource = new JTextField();
+        public static JTextField certificationSource = new JTextField();
         JLabel certType = new JLabel("Certification Type");
-        JTextField certificationType = new JTextField();
+        public static JTextField certificationType = new JTextField();
         JLabel langView1 = new JLabel("Lang1");
-        JTextField languageInput1 = new JTextField();
+        public static JTextField languageInput1 = new JTextField();
         JLabel langView2 = new JLabel("lang 2");
-        JTextField languageInput2 = new JTextField();
+        public static JTextField languageInput2 = new JTextField();
         JLabel phone = new JLabel("Phone Number");
-        JTextField phoneInput = new JTextField();
+        public static JTextField phoneInput = new JTextField();
         JButton submit = new JButton("Submit");
         @Override
         void addComponents() {
@@ -72,16 +70,25 @@ import javax.swing.*;
                     if (isEmpty()){
                         JOptionPane.showMessageDialog(null,"Can not submit null data");
                     }else{
-                        descriptionOfYourSkills.getText();
-                        Object [] Skills= {userSkills.getText()};
-                        Object [] User_Cont = {Sign_in.getUSER_ID(),phoneInput.getText()};
+                        Super s = new Super();
+                        s.setUSER_ID(Sign_in.getUSER_ID());
+                        CERTIFICATIONS cert = new CERTIFICATIONS();
+                        Skills skill = new Skills();
+                        Contacts cont = new Contacts();
+                        Languages language = new Languages();
+                        USER_CERTIFICATIONS uc = new USER_CERTIFICATIONS();
+                        USER_SKILLS us = new USER_SKILLS();
+                        USER_LANGUAGES ul = new USER_LANGUAGES();
                         try {
-//                            new Skills().insertData(new Object[]{userSkills.getText()});
-                            new Certifications().insertData(new Object[]{certificationType.getText(),certificationTitle.getText()});
-                            new USER_CERTIFICATIONS().insertData(new Object[]{Sign_in.getUSER_ID(),certificationTitle.getText(),certificationSource.getText()});
-                           /* Languages.insertData(languageInput1.getText());
-                            Languages.insertData(languageInput2.getText());
-                            new Contacts().insertData(User_Cont);*/
+                            skill.insertData(userSkills.getText());
+                            cert.insertData(certificationType.getText(),certificationTitle.getText());
+                            language.insertData(languageInput1.getText());
+                            language.insertData(languageInput2.getText());
+                            cont.insertData(phoneInput.getText());
+                            uc.insertData(certificationTitle.getText(),certificationSource.getText());
+                            us.insertData(userSkills.getText(),descriptionOfYourSkills.getText());
+                            ul.insertData(languageInput1.getText());
+                            ul.insertData(languageInput2.getText());
                             JOptionPane.showMessageDialog(null,"Save Data Successfully");
                         } catch (Exception ex) {
                             ex.printStackTrace();

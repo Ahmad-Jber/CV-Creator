@@ -1,12 +1,19 @@
 package com.SaeedKhoury.DBCaT;
 
-import org.jetbrains.annotations.NotNull;
+import com.SaeedKhoury.GUI.Sign_in;
 
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public abstract class Super {
+public class Super {
+    private String USER_ID = Sign_in.getUSER_ID();
+    public String getUSER_ID() {
+        return USER_ID;
+    }
+    public void setUSER_ID(String USER_ID) {
+        this.USER_ID = USER_ID;
+    }
     public static Connection connection() {
         Connection con=null;
         try {
@@ -17,9 +24,4 @@ public abstract class Super {
         }
         return con;
     }
-    public abstract void insertData(Object @NotNull [] data) throws Exception;
-    public abstract void updateData(Object @NotNull [] oldData,Object @NotNull [] currentData) throws Exception;
-    public abstract void deleteData() throws Exception;
-    public abstract void selectData() throws Exception;
-
 }

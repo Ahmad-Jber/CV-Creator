@@ -1,6 +1,7 @@
 package com.SaeedKhoury.GUI;
 
 import com.SaeedKhoury.DBCaT.Super;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 public class Sign_in extends GUI {
     private static String USER_ID;
     /*if (userName.equalsIgnoreCase("Test") && password.equalsIgnoreCase("1234@.")){
@@ -23,9 +23,8 @@ public class Sign_in extends GUI {
     JButton signIn = new JButton("Sign in");
     JButton signUp = new JButton("Sign Up");
     JCheckBox show_password = new JCheckBox("Show Password");
-
     @Override
-    void view() {
+    void view(){
         sign_in.setVisible(true);
         sign_in.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Username.setBackground(Color.BLACK);
@@ -45,15 +44,13 @@ public class Sign_in extends GUI {
             }
         });
     }
-
-    String getPass(char[] pass) {
+    String getPass(char @NotNull [] pass) {
         StringBuilder password = new StringBuilder();
         for (char c : pass) {
             password.append(c);
         }
         return password.toString();
     }
-
     void actions() {
         signUp.addActionListener(new AbstractAction() {
             @Override
@@ -76,9 +73,6 @@ public class Sign_in extends GUI {
                             JOptionPane.showMessageDialog(null, "Successfully login");
                             new AddData().view();
                             sign_in.setVisible(false);
-/*
-                        new AddData().view();
-*/
                         } else {
                             JOptionPane.showMessageDialog(null, "Enter password again");
                         }
@@ -97,22 +91,19 @@ public class Sign_in extends GUI {
             }
         });
     }
-
     public boolean validateUser(String username, String password) {
         boolean result = false;
         try {
-            PreparedStatement pstat = Super.connection().prepareStatement("select USER_ID,PASS from USERS where USER_ID= ? and PASS = ?");
-            pstat.setString(1, username);
-            pstat.setString(2, password);
-            ResultSet rs = pstat.executeQuery();
+            PreparedStatement stat = Super.connection().prepareStatement("select USER_ID,PASS from USERS where USER_ID= ? and PASS = ?");
+            stat.setString(1, username);
+            stat.setString(2, password);
+            ResultSet rs = stat.executeQuery();
             result = rs.next() || rs.getRow() != 0;
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error while login");
         }
         return result;
     }
-
     public boolean validateUserName(String username) {
         boolean result = false;
         try {
@@ -127,11 +118,9 @@ public class Sign_in extends GUI {
             setUSER_ID(username);
         return result;
     }
-
     public boolean isEmpty() {
         return username.getText().equals("") || getPass(password.getPassword()).equals("");
     }
-
     @Override
     void addComponents() {
         Component[] arr = {Username, password1, username, password, signIn, signUp, show_password};
@@ -139,7 +128,6 @@ public class Sign_in extends GUI {
             sign_in.add(component);
         }
     }
-
     void setBound() {
         Username.setBounds(100, 20, 100, 20);
         username.setBounds(230, 20, 250, 25);
@@ -150,11 +138,9 @@ public class Sign_in extends GUI {
         signUp.setBounds(300, 180, 90, 40);
         sign_in.setSize(500, 500);
     }
-
     public static String getUSER_ID() {
         return USER_ID;
     }
-
     public void setUSER_ID(String USER_ID) {
         Sign_in.USER_ID = USER_ID;
     }

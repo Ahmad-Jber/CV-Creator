@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/CERTIFICATIONS.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/Contacts.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/Languages.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/Skills.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/USER_CERTIFICATIONS.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/USER_LANGUAGES.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/USER_SKILLS.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/Users.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/AddData.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/Main.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/ShowData.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/Sign_in.java" dialect="GenericSQL" />
+  </component>
+</project>

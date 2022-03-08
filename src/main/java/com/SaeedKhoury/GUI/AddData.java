@@ -90,8 +90,11 @@ import javax.swing.*;
                             ul.insertData(languageInput1.getText());
                             ul.insertData(languageInput2.getText());
                             JOptionPane.showMessageDialog(null,"Save Data Successfully");
+                            insertData.setVisible(false);
+                            System.out.println("Data inserted Successfully");
+                            new ShowData().view();
                         } catch (Exception ex) {
-                            ex.printStackTrace();
+                                    ex.printStackTrace();
                         }
                     }
                 }

@@ -80,6 +80,7 @@ public class Sign_up extends GUI {
                         JOptionPane.showMessageDialog(null, "Successfully");
                         sign_up.setVisible(false);
                         Sign_in.sign_in.setVisible(true);
+                        System.out.println("Sign Up Successfully");
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -91,7 +92,7 @@ public class Sign_up extends GUI {
     boolean isEmpty() {
         String pass = Arrays.toString(passwordField.getPassword());
         String con_pass = Arrays.toString(passwordField1.getPassword());
-        return FullName.equals("") || FirstName.equals("") || LastName.equals("") || Username.equals("") || Email.equals("") || OtherLang.equals("") || pass.equals("") || con_pass.equals("") || BIRTHDATE.getFormattedTextField().getText().equals("");
+        return FullName.equals("") || FirstName.equals("") || LastName.equals("") || Username.equals("") || Email.equals("") || pass.equals("") || con_pass.equals("") || BIRTHDATE.getFormattedTextField().getText().equals("");
     }
 
     @Override

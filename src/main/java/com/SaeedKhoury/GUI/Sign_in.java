@@ -34,14 +34,11 @@ public class Sign_in extends GUI {
         addComponents();
         setBound();
         actions();
-        show_password.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (show_password.isSelected())
-                    password.setEchoChar('\0');
-                else
-                    password.setEchoChar('*');
-            }
+        show_password.addItemListener(e -> {
+            if (show_password.isSelected())
+                password.setEchoChar('\0');
+            else
+                password.setEchoChar('*');
         });
     }
     String getPass(char @NotNull [] pass) {
@@ -62,15 +59,13 @@ public class Sign_in extends GUI {
         signIn.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String sql = "SELECT * FROM USERS";
                 try {
-                    PreparedStatement stmt = Super.connection().prepareCall(sql);
-                    ResultSet rs = stmt.executeQuery(sql);
                     if (isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Please fill the empty fields");
                     } else if (validateUserName(username.getText())) {
                         if (validateUser(username.getText(), getPass(password.getPassword()))) {
                             JOptionPane.showMessageDialog(null, "Successfully login");
+                            System.out.println("Sign In Successfully");
                             new AddData().view();
                             sign_in.setVisible(false);
                         } else {

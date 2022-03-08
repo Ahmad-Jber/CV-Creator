@@ -35,6 +35,7 @@ public class ShowData extends GUI{
             preparedStatement = Super.connection().prepareStatement("SELECT * FROM USER_CERTIFICATIONS WHERE USER_ID = ?");
             preparedStatement.setString(1,Sign_in.getUSER_ID());
             rs = preparedStatement.executeQuery();
+            rs.next();
             showCertification.setText(rs.getString(2)+rs.getString(3));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,6 +59,7 @@ public class ShowData extends GUI{
         JLabel label= new JLabel();
         try {
             String sql = "SELECT FULL_NAME FROM USERS WHERE USER_ID = ?";
+            rs.next();
             preparedStatement = Super.connection().prepareStatement(sql);
             preparedStatement.setString(1,Sign_in.getUSER_ID());
             ResultSet rs = preparedStatement.executeQuery();

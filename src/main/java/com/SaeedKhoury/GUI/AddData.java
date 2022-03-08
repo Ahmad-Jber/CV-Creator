@@ -108,6 +108,6 @@ import javax.swing.*;
             panel_4.setLayout(new GridLayout(3,2));
         }
         boolean isEmpty() {
-            return userSkills.getText().equals("") || descriptionOfYourSkills.getText().equals("") || certificationTitle.getText().equals("") || certificationType.getText().equals("") || certificationSource.getText().equals("") || phone.getText().equals("");
+            return userSkills.getText().equals("") || descriptionOfYourSkills.getText().equals("") || certificationTitle.getText().equals("") || certificationType.getText().equals("") || certificationSource.getText().equals("")||languageInput1.getText().equals("")||languageInput2.getText().equals("")||phoneInput.getText().equals("");
         }
 }

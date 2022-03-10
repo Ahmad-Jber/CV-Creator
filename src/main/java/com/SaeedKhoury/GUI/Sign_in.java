@@ -66,7 +66,7 @@ public class Sign_in extends GUI {
                         if (validateUser(username.getText(), getPass(password.getPassword()))) {
                             JOptionPane.showMessageDialog(null, "Successfully login");
                             System.out.println("Sign In Successfully");
-                            new AddData().view();
+                            new AddOrShowData().view();
                             sign_in.setVisible(false);
                         } else {
                             JOptionPane.showMessageDialog(null, "Enter password again");

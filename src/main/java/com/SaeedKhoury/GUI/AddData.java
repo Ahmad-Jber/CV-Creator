@@ -57,7 +57,6 @@ import javax.swing.*;
         public void view() {
             addComponents();
             setLayout();
-            insertData.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             tabbedPane.setLocation(JTabbedPane.CENTER,JTabbedPane.CENTER);
             descriptionOfYourSkills.setSize(200,600);
             insertData.setVisible(true);
@@ -92,7 +91,7 @@ import javax.swing.*;
                             JOptionPane.showMessageDialog(null,"Save Data Successfully");
                             insertData.setVisible(false);
                             System.out.println("Data inserted Successfully");
-                            new ShowData().view();
+                            new AddOrShowData().view();
                         } catch (Exception ex) {
                                     ex.printStackTrace();
                         }

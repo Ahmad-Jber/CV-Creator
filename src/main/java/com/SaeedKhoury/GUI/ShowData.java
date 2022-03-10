@@ -4,8 +4,6 @@ import com.SaeedKhoury.DBCaT.Super;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,35 +11,23 @@ import java.sql.SQLException;
 public class ShowData extends GUI{
     PreparedStatement preparedStatement;
     ResultSet rs;
+    JFrame showData = new JFrame("Show Your Data");
+    JLabel showName1 = new JLabel("Skills");
+    JLabel showSkillsTitle = new JLabel();
+    JLabel showSkillsDesc = new JLabel();
+    JLabel showName2 = new JLabel("Certifications");
+    JLabel showCertification = new JLabel();
+    JLabel showName3 = new JLabel("Languages");
+    JLabel showLanguage1 = new JLabel();
+    JLabel showLanguage2 = new JLabel();
+    JLabel showName4 = new JLabel("Contacts");
+    JLabel showContact = new JLabel();
     public void view(){
-        try {
-            preparedStatement = Super.connection().prepareStatement("SELECT * FROM USER_SKILLS WHERE USER_ID=?");
-            preparedStatement.setString(1,Sign_in.getUSER_ID());
-            rs = preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        JFrame showData = new JFrame("Show Your Data");
-        JLabel showName1 = new JLabel("Skills");
-        JLabel showSkills = new JLabel();
-        JLabel showName2 = new JLabel("Certifications");
-        JLabel showCertification = new JLabel();
-        JLabel showName3 = new JLabel("Languages");
-        JLabel showLanguage = new JLabel();
-        JLabel showName4 = new JLabel("Contacts");
-        JLabel showContact = new JLabel();
-        try {
-            showSkills .setText(rs.getString(3)+"\n\n"+rs.getString(4));
-            preparedStatement = Super.connection().prepareStatement("SELECT * FROM USER_CERTIFICATIONS WHERE USER_ID = ?");
-            preparedStatement.setString(1,Sign_in.getUSER_ID());
-            rs = preparedStatement.executeQuery();
-            rs.next();
-            showCertification.setText(rs.getString(2)+rs.getString(3));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        showSkills();
+        showCertifications();
+        showLanguages();
+        showContacts();
         showData.setSize(400,200);
-        showData.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         showData.setLayout(new GridBagLayout());
         JPanel panel_L = new JPanel();
         JPanel panel_R = new JPanel();
@@ -57,22 +43,11 @@ public class ShowData extends GUI{
         JButton next = new JButton("Next");
         JLabel label2 = new JLabel();
         JLabel label= new JLabel();
-        try {
-            String sql = "SELECT FULL_NAME FROM USERS WHERE USER_ID = ?";
-            rs.next();
-            preparedStatement = Super.connection().prepareStatement(sql);
-            preparedStatement.setString(1,Sign_in.getUSER_ID());
-            ResultSet rs = preparedStatement.executeQuery();
-            label.setText(rs.getString("FULL_NAME"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        label.setText(getFULL_NAME());
         JButton previous = new JButton("Previous");
         panel_L.add(label);
         panel_L.add(next);
-/* 
-        panel_L.add(label);
-*/
+        /*panel_L.add(label);*/
         panel_L.add(label2);
         panel_L.add(previous);
         CardLayout card = new CardLayout();
@@ -82,13 +57,17 @@ public class ShowData extends GUI{
         JPanel p3 = new JPanel();
         JPanel p4 = new JPanel();
         p1.add(showName1);
-        p1.add(showSkills);
+        p1.add(showSkillsTitle);
         p2.add(showName2);
         p2.add(showCertification);
         p3.add(showName3);
-        p3.add(showLanguage);
+        p3.add(showLanguage1);
         p4.add(showName4);
         p4.add(showContact);
+        p1.setLayout(new GridLayout());
+        p2.setLayout(new GridLayout());
+        p3.setLayout(new GridLayout());
+        p4.setLayout(new GridLayout());
         panel_R.add(p1);
         panel_R.add(p2);
         panel_R.add(p3);
@@ -98,7 +77,7 @@ public class ShowData extends GUI{
 */
         next.addActionListener(e -> card.next(panel_R));
         previous.addActionListener(e -> card.previous(panel_R));
-        Font newFont = new Font("Times New Roman (Headings CS)", Font.ITALIC, 20);
+        Font newFont = new Font("Times New Roman (Headings CS)", Font.BOLD, 20);
         showData.setVisible(true);
         showName1.setFont(newFont);
         showName2.setFont(newFont);
@@ -117,5 +96,71 @@ public class ShowData extends GUI{
     @Override
     void addComponents() {
 
+    }
+    private void showSkills(){
+        try {
+            preparedStatement = Super.connection().prepareStatement("SELECT * FROM USER_SKILLS WHERE USER_ID = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            preparedStatement.setString(1,Sign_in.getUSER_ID());
+            rs = preparedStatement.executeQuery();
+            rs.first();
+            showSkillsTitle.setText(rs.getString("SKILL_TITLE"));
+            showSkillsDesc.setText(rs.getString("SKILL_DESC"));
+        } catch (SQLException e) {
+            System.out.println("Error while showing the Skills data");
+            e.printStackTrace();
+        }
+    }
+    private void showCertifications(){
+        try {
+            preparedStatement = Super.connection().prepareStatement("SELECT * FROM USER_CERTIFICATIONS WHERE USER_ID = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            preparedStatement.setString(1,Sign_in.getUSER_ID());
+            rs = preparedStatement.executeQuery();
+            rs.first();
+            showCertification.setText(rs.getString(2)+rs.getString(3));
+        } catch (SQLException e) {
+            System.out.println("Error while showing the Certifications data");
+            e.printStackTrace();
+        }
+    }
+    private void showLanguages(){
+        try {
+            preparedStatement = Super.connection().prepareStatement("SELECT * FROM USER_LANGUAGES WHERE USER_ID = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            preparedStatement.setString(1,Sign_in.getUSER_ID());
+            rs = preparedStatement.executeQuery();
+            rs.first();
+            showLanguage1.setText(rs.getString("LANG_NAME"));
+            rs.next();
+            showLanguage2.setText(rs.getString("LANG_NAME"));
+        }catch (SQLException e){
+            System.out.println("Error while showing the languages");
+            e.printStackTrace();
+        }
+    }
+    private void showContacts(){
+        try {
+            preparedStatement = Super.connection().prepareStatement("SELECT * FROM USER_CONTACTS WHERE USER_ID = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            preparedStatement.setString(1,Sign_in.getUSER_ID());
+            rs = preparedStatement.executeQuery();
+            rs.first();
+            showContact.setText(rs.getString("CONTACT_ADDRESS"));
+        } catch (SQLException e) {
+            System.out.println("Error while showing the Contacts data");
+            e.printStackTrace();
+        }
+    }
+    private String getFULL_NAME(){
+        String FULL_NAME = null;
+        try {
+            String sql = "SELECT * FROM USERS WHERE USER_ID = ?";
+            rs.first();
+            preparedStatement = Super.connection().prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            preparedStatement.setString(1,Sign_in.getUSER_ID());
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.first();
+            FULL_NAME= rs.getString("FULL_NAME");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return FULL_NAME;
     }
 }

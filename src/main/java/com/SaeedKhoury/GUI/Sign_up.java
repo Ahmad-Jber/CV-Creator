@@ -51,16 +51,13 @@ public class Sign_up extends GUI {
         setFont();
         setBound();
         sign_up.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        show_password.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (show_password.isSelected()) {
-                    passwordField.setEchoChar('\0');
-                    passwordField1.setEchoChar('\0');
-                } else {
-                    passwordField.setEchoChar('*');
-                    passwordField1.setEchoChar('*');
-                }
+        show_password.addItemListener(e -> {
+            if (show_password.isSelected()) {
+                passwordField.setEchoChar('\0');
+                passwordField1.setEchoChar('\0');
+            } else {
+                passwordField.setEchoChar('*');
+                passwordField1.setEchoChar('*');
             }
         });
         submit.addActionListener(new AbstractAction() {
@@ -92,7 +89,7 @@ public class Sign_up extends GUI {
     boolean isEmpty() {
         String pass = Arrays.toString(passwordField.getPassword());
         String con_pass = Arrays.toString(passwordField1.getPassword());
-        return FullName.equals("") || FirstName.equals("") || LastName.equals("") || Username.equals("") || Email.equals("") || pass.equals("") || con_pass.equals("") || BIRTHDATE.getFormattedTextField().getText().equals("");
+        return FullName.getText().equals("") || FirstName.getText().equals("") || LastName.getText().equals("") || Username.getText().equals("") || Email.getText().equals("") || pass.equals("") || con_pass.equals("") || BIRTHDATE.getFormattedTextField().getText().equals("");
     }
 
     @Override
@@ -138,7 +135,7 @@ public class Sign_up extends GUI {
         submit.setBounds(230, 600, 280, 50);
     }
 
-    String getPass(char[] pass) {
+    String getPass(char @NotNull [] pass) {
         StringBuilder password = new StringBuilder();
         for (char c : pass) {
             password.append(c);

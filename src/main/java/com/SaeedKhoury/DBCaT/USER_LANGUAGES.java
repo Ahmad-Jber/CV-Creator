@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class USER_LANGUAGES extends Super{
+public class USER_LANGUAGES extends Languages{
     private int LANG_ID;
     private String LANG_NAME;
     public int getLANG_ID() {

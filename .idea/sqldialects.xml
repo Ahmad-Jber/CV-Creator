@@ -10,6 +10,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/USER_SKILLS.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/DBCaT/Users.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/AddData.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/AddOrShowData.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/Main.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/ShowData.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/SaeedKhoury/GUI/Sign_in.java" dialect="GenericSQL" />

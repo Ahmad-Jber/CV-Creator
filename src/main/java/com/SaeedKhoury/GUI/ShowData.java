@@ -1,5 +1,6 @@
 package com.SaeedKhoury.GUI;
 
+import com.SaeedKhoury.DBCaT.CERTIFICATIONS;
 import com.SaeedKhoury.DBCaT.Super;
 
 import javax.swing.*;
@@ -16,12 +17,16 @@ public class ShowData extends GUI{
     JLabel showSkillsTitle = new JLabel();
     JLabel showSkillsDesc = new JLabel();
     JLabel showName2 = new JLabel("Certifications");
-    JLabel showCertification = new JLabel();
+    JLabel showCertificationTitle = new JLabel();
+    JLabel showCertificationType = new JLabel();
+    JLabel showCertificationSource = new JLabel();
     JLabel showName3 = new JLabel("Languages");
     JLabel showLanguage1 = new JLabel();
     JLabel showLanguage2 = new JLabel();
     JLabel showName4 = new JLabel("Contacts");
     JLabel showContact = new JLabel();
+    JPanel panel_L = new JPanel();
+    JPanel panel_R = new JPanel();
     public void view(){
         showSkills();
         showCertifications();
@@ -29,8 +34,6 @@ public class ShowData extends GUI{
         showContacts();
         showData.setSize(400,200);
         showData.setLayout(new GridBagLayout());
-        JPanel panel_L = new JPanel();
-        JPanel panel_R = new JPanel();
         panel_R.setBorder(BorderFactory.createTitledBorder(""));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -52,46 +55,48 @@ public class ShowData extends GUI{
         panel_L.add(previous);
         CardLayout card = new CardLayout();
         panel_R.setLayout(card);
-        JPanel p1 = new JPanel();
-        JPanel p2 = new JPanel();
-        JPanel p3 = new JPanel();
-        JPanel p4 = new JPanel();
-        p1.add(showName1);
-        p1.add(showSkillsTitle);
-        p2.add(showName2);
-        p2.add(showCertification);
-        p3.add(showName3);
-        p3.add(showLanguage1);
-        p4.add(showName4);
-        p4.add(showContact);
-        p1.setLayout(new GridLayout());
-        p2.setLayout(new GridLayout());
-        p3.setLayout(new GridLayout());
-        p4.setLayout(new GridLayout());
-        panel_R.add(p1);
-        panel_R.add(p2);
-        panel_R.add(p3);
-        panel_R.add(p4);
-/*
-        panel_R.add(label);
-*/
+        JPanel skillsPanel = new JPanel();
+        JPanel certificationsPanel = new JPanel();
+        JPanel languagesPanel = new JPanel();
+        JPanel contactsPanel = new JPanel();
+        skillsPanel.add(showName1);
+        skillsPanel.add(showSkillsTitle);
+        skillsPanel.add(showSkillsDesc);
+        certificationsPanel.add(showName2);
+        certificationsPanel.add(showCertificationTitle);
+        certificationsPanel.add(showCertificationType);
+        certificationsPanel.add(showCertificationSource);
+        languagesPanel.add(showName3);
+        languagesPanel.add(showLanguage1);
+        languagesPanel.add(showLanguage2);
+        contactsPanel.add(showName4);
+        contactsPanel.add(showContact);
+        skillsPanel.setLayout(new GridLayout(4,1));
+        certificationsPanel.setLayout(new GridLayout(4,1));
+        languagesPanel.setLayout(new GridLayout(4,1));
+        contactsPanel.setLayout(new GridLayout(4,1));
+        panel_R.add(skillsPanel);
+        panel_R.add(certificationsPanel);
+        panel_R.add(languagesPanel);
+        panel_R.add(contactsPanel);
+        /*panel_R.add(label);*/
         next.addActionListener(e -> card.next(panel_R));
         previous.addActionListener(e -> card.previous(panel_R));
-        Font newFont = new Font("Times New Roman (Headings CS)", Font.BOLD, 20);
         showData.setVisible(true);
-        showName1.setFont(newFont);
-        showName2.setFont(newFont);
-        showName3.setFont(newFont);
-        showName4.setFont(newFont);
+        showName1.setFont(font);
+        showName2.setFont(font);
+        showName3.setFont(font);
+        showName4.setFont(font);
         panel_L.setBackground(Color.white);
         panel_R.setBackground(Color.white);
         next.setBackground(Color.white);
         previous.setBackground(Color.white);
-        next.setFont(newFont);
-        previous.setFont(newFont);
+        next.setFont(font);
+        previous.setFont(font);
         next.setForeground(Color.black);
         previous.setForeground(Color.black);
-        showName1.setFont(newFont);
+        showName1.setFont(font);
+        System.out.println("Show data successfully");
     }
     @Override
     void addComponents() {
@@ -105,6 +110,7 @@ public class ShowData extends GUI{
             rs.first();
             showSkillsTitle.setText(rs.getString("SKILL_TITLE"));
             showSkillsDesc.setText(rs.getString("SKILL_DESC"));
+            System.out.println("Show skills successfully");
         } catch (SQLException e) {
             System.out.println("Error while showing the Skills data");
             e.printStackTrace();
@@ -116,11 +122,26 @@ public class ShowData extends GUI{
             preparedStatement.setString(1,Sign_in.getUSER_ID());
             rs = preparedStatement.executeQuery();
             rs.first();
-            showCertification.setText(rs.getString(2)+rs.getString(3));
+            showCertificationTitle.setText(rs.getString("CERT_TITLE"));
+            showCertificationSource.setText(rs.getString("CERT_SOURCE"));
+            showCertificationType.setText(getCertificationType());
+            System.out.println("Show certifications successfully");
         } catch (SQLException e) {
             System.out.println("Error while showing the Certifications data");
             e.printStackTrace();
         }
+    }
+    private String getCertificationType() {
+        try {
+            preparedStatement = Super.connection().prepareStatement("SELECT * FROM CERTIFICATIONS WHERE CERT_ID = (SELECT CERT_ID FROM USER_CERTIFICATIONS WHERE USER_ID =?)",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            preparedStatement.setString(1, Sign_in.getUSER_ID());
+            rs = preparedStatement.executeQuery();
+            rs.first();
+            return rs.getString("TYPE");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     private void showLanguages(){
         try {
@@ -131,6 +152,7 @@ public class ShowData extends GUI{
             showLanguage1.setText(rs.getString("LANG_NAME"));
             rs.next();
             showLanguage2.setText(rs.getString("LANG_NAME"));
+            System.out.println("Show languages successfully");
         }catch (SQLException e){
             System.out.println("Error while showing the languages");
             e.printStackTrace();
@@ -143,6 +165,7 @@ public class ShowData extends GUI{
             rs = preparedStatement.executeQuery();
             rs.first();
             showContact.setText(rs.getString("CONTACT_ADDRESS"));
+            System.out.println("Show contacts successfully");
         } catch (SQLException e) {
             System.out.println("Error while showing the Contacts data");
             e.printStackTrace();

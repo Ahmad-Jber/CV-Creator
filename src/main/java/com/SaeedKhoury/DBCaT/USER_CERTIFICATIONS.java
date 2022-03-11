@@ -12,22 +12,9 @@ public class USER_CERTIFICATIONS extends CERTIFICATIONS {
             CERT_SOURCE;
     private static int CERT_ID;
     public static int getCERT_ID() {
-        PreparedStatement pstat = null;
-        try {
-            String getText = AddData.certificationTitle.getText();
-            pstat = Super.connection().prepareStatement("select CERT_ID from CERTIFICATIONS where TITLE= ?");
-            pstat.setString(1,getText);
-            ResultSet rs = pstat.executeQuery();
-            boolean result = rs.next() || rs.getRow() != 0;
-            if (result){
-                CERT_ID = rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return CERT_ID;
+        return CERTIFICATIONS.getCERT_ID();
     }
-    public static void setCERT_ID(int CERT_ID) {
+    public static void setCERT_ID(int CERT_ID){
         USER_CERTIFICATIONS.CERT_ID = CERT_ID;
     }
     public String getCERT_TITLE() {
@@ -48,7 +35,6 @@ public class USER_CERTIFICATIONS extends CERTIFICATIONS {
         setCERT_TITLE(CERT_TITLE);
         setCERT_SOURCE(CERT_SOURCE);
         insertData();
-        super.insertData(AddData.certificationType.getText(),CERT_TITLE);
     }
     private void insertData(){
         final String insertSQL = "insert into USER_CERTIFICATIONS values (?,?,?,?)";

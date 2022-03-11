@@ -9,10 +9,20 @@ import java.sql.SQLException;
 public class CERTIFICATIONS extends Super {
     private static int CERT_ID;
     private static String Type,Title;
-    public static void setCERT_ID(int CERT_ID) {
-        CERTIFICATIONS.CERT_ID = CERT_ID;
-    }
     public static int getCERT_ID() {
+        PreparedStatement pstat = null;
+        try {
+            String getText = AddData.certificationTitle.getText();
+            pstat = Super.connection().prepareStatement("select * from CERTIFICATIONS where TITLE= ?");
+            pstat.setString(1,getText);
+            ResultSet rs = pstat.executeQuery();
+            boolean result = rs.next() || rs.getRow() != 0;
+            if (result){
+                CERT_ID = rs.getInt("CERT_ID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return CERT_ID;
     }
     public void setType(String type) {

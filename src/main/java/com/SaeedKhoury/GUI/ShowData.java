@@ -1,10 +1,10 @@
 package com.SaeedKhoury.GUI;
 
-import com.SaeedKhoury.DBCaT.CERTIFICATIONS;
 import com.SaeedKhoury.DBCaT.Super;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ShowData extends GUI{
     PreparedStatement preparedStatement;
     ResultSet rs;
-    JFrame showData = new JFrame("Show Your Data");
+    public static JFrame showData = new JFrame("Show Your Data");
     JLabel showName1 = new JLabel("Skills");
     JLabel showSkillsTitle = new JLabel();
     JLabel showSkillsDesc = new JLabel();
@@ -27,6 +27,7 @@ public class ShowData extends GUI{
     JLabel showContact = new JLabel();
     JPanel panel_L = new JPanel();
     JPanel panel_R = new JPanel();
+    JButton backButton = new JButton("Back To Dashboard");
     public void view(){
         showSkills();
         showCertifications();
@@ -34,6 +35,7 @@ public class ShowData extends GUI{
         showContacts();
         showData.setSize(400,200);
         showData.setLayout(new GridBagLayout());
+        showData.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel_R.setBorder(BorderFactory.createTitledBorder(""));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -44,15 +46,12 @@ public class ShowData extends GUI{
         showData.add(panel_R,gbc);
         panel_L.setLayout(new GridLayout(4, 1));
         JButton next = new JButton("Next");
-        JLabel label2 = new JLabel();
-        JLabel label= new JLabel();
-        label.setText(getFULL_NAME());
+        JLabel showFull_Name= new JLabel(getFULL_NAME());
         JButton previous = new JButton("Previous");
-        panel_L.add(label);
+        panel_L.add(showFull_Name);
         panel_L.add(next);
-        /*panel_L.add(label);*/
-        panel_L.add(label2);
         panel_L.add(previous);
+        panel_L.add(backButton);
         CardLayout card = new CardLayout();
         panel_R.setLayout(card);
         JPanel skillsPanel = new JPanel();
@@ -79,7 +78,6 @@ public class ShowData extends GUI{
         panel_R.add(certificationsPanel);
         panel_R.add(languagesPanel);
         panel_R.add(contactsPanel);
-        /*panel_R.add(label);*/
         next.addActionListener(e -> card.next(panel_R));
         previous.addActionListener(e -> card.previous(panel_R));
         showData.setVisible(true);
@@ -91,11 +89,21 @@ public class ShowData extends GUI{
         panel_R.setBackground(Color.white);
         next.setBackground(Color.white);
         previous.setBackground(Color.white);
+        backButton.setBackground(Color.white);
         next.setFont(font);
         previous.setFont(font);
+        backButton.setFont(font);
         next.setForeground(Color.black);
         previous.setForeground(Color.black);
-        showName1.setFont(font);
+        backButton.setForeground(Color.black);
+        backButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showData.setVisible(false);
+                new AddOrShowData().view();
+                System.out.println("Successfully back to dashboard");
+            }
+        });
         System.out.println("Show data successfully");
     }
     @Override

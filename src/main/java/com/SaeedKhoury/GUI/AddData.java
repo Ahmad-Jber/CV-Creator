@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
     public class AddData extends GUI{
-        JFrame insertData = new JFrame("Insert CV Data");
+        public static JFrame insertData = new JFrame("Insert CV Data");
         JPanel panel_1 = new JPanel();
         JPanel panel_2 = new JPanel();
         JPanel panel_3 = new JPanel();
@@ -28,6 +28,7 @@ import javax.swing.*;
         JLabel phone = new JLabel("Phone Number");
         public static JTextField phoneInput = new JTextField();
         JButton submit = new JButton("Submit");
+        JButton back = new JButton("Back To Dashboard");
         @Override
         void addComponents() {
             panel_1.add(skillsTitle);
@@ -52,6 +53,7 @@ import javax.swing.*;
             tabbedPane.addTab("Contact", panel_4);
             insertData.add(tabbedPane);
             insertData.add(submit);
+            insertData.add(back);
         }
         @Override
         public void view() {
@@ -62,6 +64,7 @@ import javax.swing.*;
             insertData.setVisible(true);
             insertData.pack();
             insertData.setLocation(500,300);
+            insertData.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             descriptionOfYourSkills.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.GRAY));
             submit.addActionListener(new AbstractAction() {
                 @Override
@@ -96,6 +99,15 @@ import javax.swing.*;
                                     ex.printStackTrace();
                         }
                     }
+                }
+            });
+            back.addActionListener(new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    insertData.setVisible(false);
+                    insertData.getContentPane().removeAll();
+                    insertData.repaint();
+                    new AddOrShowData().view();
                 }
             });
         }

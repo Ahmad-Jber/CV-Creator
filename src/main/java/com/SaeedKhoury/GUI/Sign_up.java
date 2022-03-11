@@ -34,9 +34,10 @@ public class Sign_up extends GUI {
     JTextField Username = new JTextField();
     JTextField Email = new JTextField();
     JButton submit = new JButton("Submit");
+    JButton backToSignIn = new JButton("Return To Sign in");
     JComboBox<String> Gender = new JComboBox<>(new String[]{"Male","Female"});
     JPasswordField passwordField1 = new JPasswordField();
-    Component[] arr = {full_name, FullName, first_name, FirstName, last_name, LastName, username, Username, email, Email, other_language_name, OtherLang, password, passwordField, con_pass, passwordField1, show_password, gender, Gender, birthdate, BIRTHDATE, submit};
+    Component[] arr = {full_name, FullName, first_name, FirstName, last_name, LastName, username, Username, email, Email, other_language_name, OtherLang, password, passwordField, con_pass, passwordField1, show_password, gender, Gender, birthdate, BIRTHDATE, submit, backToSignIn};
 
     @Override
     void view() {
@@ -82,6 +83,15 @@ public class Sign_up extends GUI {
                         ex.printStackTrace();
                     }
                 }
+            }
+        });
+        backToSignIn.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sign_up.setVisible(false);
+                Sign_in.username.setText("");
+                Sign_in.password.setText("");
+                new Sign_in().view();
             }
         });
     }
@@ -133,6 +143,8 @@ public class Sign_up extends GUI {
         BIRTHDATE.setBounds(400, 550, 280, 40);
         Gender.setBounds(400, 500, 280, 30);
         submit.setBounds(230, 600, 280, 50);
+        backToSignIn.setBounds(230, 700, 280, 50);
+
     }
 
     String getPass(char @NotNull [] pass) {

@@ -12,14 +12,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class Sign_in extends GUI {
     private static String USER_ID;
-    /*if (userName.equalsIgnoreCase("Test") && password.equalsIgnoreCase("1234@.")){
-        System.out.println("Logged in");
-    }*/
     static JFrame sign_in = new JFrame("Sign in");
     JLabel Username = new JLabel("Username"),
             password1 = new JLabel("Password");
-    JTextField username = new JTextField();
-    JPasswordField password = new JPasswordField();
+    public static JTextField username = new JTextField();
+    public static JPasswordField password = new JPasswordField();
     JButton signIn = new JButton("Sign in");
     JButton signUp = new JButton("Sign Up");
     JCheckBox show_password = new JCheckBox("Show Password");

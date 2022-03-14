@@ -100,6 +100,8 @@ public class ShowData extends GUI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 showData.setVisible(false);
+                showData.getContentPane().removeAll();
+                showData.repaint();
                 new AddOrShowData().view();
                 System.out.println("Successfully back to dashboard");
             }

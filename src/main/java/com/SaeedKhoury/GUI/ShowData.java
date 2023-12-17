@@ -173,9 +173,10 @@ public class ShowData extends GUI{
             preparedStatement = Super.connection().prepareStatement("SELECT * FROM USER_CONTACTS WHERE USER_ID = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             preparedStatement.setString(1,Sign_in.getUSER_ID());
             rs = preparedStatement.executeQuery();
-            rs.first();
-            showContact.setText(rs.getString("CONTACT_ADDRESS"));
-            System.out.println("Show contacts successfully");
+            if (rs.first()){
+                showContact.setText(rs.getString("CONTACT_ADDRESS"));
+                System.out.println("Show contacts successfully");
+            } else showContact.setText("");
         } catch (SQLException e) {
             System.out.println("Error while showing the Contacts data");
             e.printStackTrace();
